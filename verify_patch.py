@@ -7,10 +7,10 @@ from config import DATABASE
 import os
 
 # Load verification settings from environment
-IS_VERIFY = os.environ.get("IS_VERIFY", "False").lower() in ("true", "1", "yes")
-SHORTLINK_URL = os.environ.get("SHORTLINK_URL", "linkshortify.com")
-SHORTLINK_API = os.environ.get("SHORTLINK_API", "353689935e1e4ac6c70ba88c7e6e71dc6fe1e8c0")
-HOW_TO_VERIFY = os.environ.get('HOW_TO_VERIFY', "https://t.me/mntgxo/22")
+IS_VERIFY = os.environ.get("IS_VERIFY", "True").lower() in ("true", "1", "yes")
+SHORTLINK_URL = os.environ.get("SHORTLINK_URL", "just2earn.com")
+SHORTLINK_API = os.environ.get("SHORTLINK_API", "ca9136b614c68b8310a40185d64f808baf1f7d5d")
+HOW_TO_VERIFY = os.environ.get('HOW_TO_VERIFY', "https://t.me/How_To_Download_MVS/10")
 
 # MongoDB setup
 mongo_client = AsyncIOMotorClient(DATABASE.URI)
