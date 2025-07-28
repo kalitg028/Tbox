@@ -140,60 +140,53 @@ async def handle_terabox(client, message: Message):
         )
         return
 
-url = message.text.strip()
-try:
-    info = get_file_info(url)
+    url = message.text.strip()
+    try:
+        info = get_file_info(url)
+    except Exception as e:
+        return await message.reply(f"❌ Failed to get file info:\n{e}")
 
-    # ✅ FIX added here
-    if not info["download_link"].startswith("http"):
-        return await message.reply("❌ தவறான அல்லது காணாமல் போன பதிவிறக்க இணைப்பு (download link).")
+    temp_path = os.path.join(tempfile.gettempdir(), info["name"])
 
-except Exception as e:
-    return await message.reply(f"❌ Failed to get file info:\n{e}")
+    await message.reply("📥 Downloading...")
 
-temp_path = os.path.join(tempfile.gettempdir(), info["name"])
+    try:
+        with requests.get(info["download_link"], headers=DL_HEADERS, stream=True) as r:
+            r.raise_for_status()
+            with open(temp_path, "http") as f:
+                shutil.copyfileobj(r.raw, f)
 
-await message.reply("📥 Downloading...")
-
-try:
-    with requests.get(info["download_link"], headers=DL_HEADERS, stream=True) as r:
-        r.raise_for_status()
-        with open(temp_path, "wb") as f:
-            shutil.copyfileobj(r.raw, f)
-
-    caption = (
-        f"File Name: {info['name']}\n"
-        f"File Size: {info['size_str']}\n"
-        f"Link: {url}"
-    )
-
-    if CHANNEL.ID:
-        await client.send_document(
-            chat_id=CHANNEL.ID,
-            document=temp_path,
-            caption=caption,
-            file_name=info["name"]
+        caption = (
+            f"File Name: {info['name']}\n"
+            f"File Size: {info['size_str']}\n"
+            f"Link: {url}"
         )
 
-    sent_msg = await client.send_document(
-        chat_id=message.chat.id,
-        document=temp_path,
-        caption=caption,
-        file_name=info["name"],
-        protect_content=True
-    )
+        if CHANNEL.ID:
+            await client.send_document(
+                chat_id=CHANNEL.ID,
+                document=temp_path,
+                caption=caption,
+                file_name=info["name"]
+            )
 
-    await message.reply("✅ File will be deleted from your chat after 12 hours.")
-    await asyncio.sleep(43200)
-    try:
-        await sent_msg.delete()
-    except Exception:
-        pass
+        sent_msg = await client.send_document(
+            chat_id=message.chat.id,
+            document=temp_path,
+            caption=caption,
+            file_name=info["name"],
+            protect_content=True
+        )
 
-except Exception as e:
-    await message.reply(f"❌ Upload failed:\n`{e}`")
-finally:
-    if os.path.exists(temp_path):
-        os.remove(temp_path)
+        await message.reply("✅ File will be deleted from your chat after 12 hours.")
+        await asyncio.sleep(43200)
+        try:
+            await sent_msg.delete()
+        except Exception:
+            pass
 
-
+    except Exception as e:
+        await message.reply(f"❌ Upload failed:\n`{e}`")
+    finally:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
