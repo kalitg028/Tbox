@@ -153,7 +153,7 @@ async def handle_terabox(client, message: Message):
     try:
         with requests.get(info["download_link"], headers=DL_HEADERS, stream=True) as r:
             r.raise_for_status()
-            with open(temp_path, "http") as f:
+            with open(temp_path, "http://") as f:
                 shutil.copyfileobj(r.raw, f)
 
         caption = (
