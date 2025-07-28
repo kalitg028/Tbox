@@ -116,7 +116,7 @@ def get_file_info(share_url: str) -> dict:
     size_bytes = int(file.get("size", 0))
     return {
         "name": file.get("server_filename", "download"),
-        "download_link": file.get("dlink", "https://vertical-danila-kalibox-34a38baa.koyeb.app/"),
+        "download_link": file.get("dlink", "https://www.terabox.com"),
         "size_bytes": size_bytes,
         "size_str": get_size(size_bytes)
     }
