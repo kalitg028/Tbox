@@ -116,7 +116,7 @@ def get_file_info(share_url: str) -> dict:
     size_bytes = int(file.get("size", 0))
     return {
         "name": file.get("server_filename", "download"),
-        "download_link": file.get("dlink", "1024terabox.com"),
+        "download_link": file.get("dlink", "https://1024terabox.com/"),
         "size_bytes": size_bytes,
         "size_str": get_size(size_bytes)
     }
@@ -178,8 +178,8 @@ async def handle_terabox(client, message: Message):
             protect_content=True
         )
 
-        await message.reply("✅ File will be deleted from your chat after 12 hours.")
-        await asyncio.sleep(43200)
+        await message.reply("✅ File will be deleted from your chat after 2 hours.")
+        await asyncio.sleep(7200)
         try:
             await sent_msg.delete()
         except Exception:
