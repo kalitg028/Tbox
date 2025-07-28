@@ -23,7 +23,7 @@ settings_col = db["terabox_settings"]
 queue_col = db["terabox_queue"]
 last_upload_col = db["terabox_lastupload"]
 
-TERABOX_REGEX = r'https?://(?:www\.)?[^/\s]*tera[^/\s]*\.[a-z]+/s/[^\s]+'
+TERABOX_REGEX = r'https://(?:www\.)?[^/\s]*tera[^/\s]*\.[a-z]+/s/[^\s]+'
 
 COOKIE = "ndus=YzrYlCHteHuixx7IN5r0fc3sajSOYAHfqDoPM0dP" # add your own cookies like ndus=YzrYlCHteHuixx7IN5r0ABCDFXDGSTGBDJKLBKMKH
 
@@ -116,7 +116,7 @@ def get_file_info(share_url: str) -> dict:
     size_bytes = int(file.get("size", 0))
     return {
         "name": file.get("server_filename", "download"),
-        "download_link": file.get("dlink", "https://"),
+        "download_link": file.get("dlink", ""),
         "size_bytes": size_bytes,
         "size_str": get_size(size_bytes)
     }
@@ -153,7 +153,7 @@ async def handle_terabox(client, message: Message):
     try:
         with requests.get(info["download_link"], headers=DL_HEADERS, stream=True) as r:
             r.raise_for_status()
-            with open(temp_path, "https://") as f:
+            with open(temp_path, "wb") as f:
                 shutil.copyfileobj(r.raw, f)
 
         caption = (
