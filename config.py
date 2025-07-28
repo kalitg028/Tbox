@@ -21,4 +21,4 @@ class WEB:
 
 class DATABASE:
     URI = os.environ.get("DB_URI", "")
-    NAME = os.environ.get("DB_NAME", "MN_Bot_DB")
+    NAME = os.environ.get("DB_NAME", "Cluster0")
