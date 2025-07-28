@@ -1,5 +1,4 @@
-#please give credits https://github.com/MN-BOTS
-#  @MrMNTG @MusammilN
+
 import os
 import re
 import tempfile
@@ -15,8 +14,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pymongo import MongoClient
 import shutil
 from config import CHANNEL, DATABASE
-#please give credits https://github.com/MN-BOTS
-#  @MrMNTG @MusammilN
+
 
 mongo_client = MongoClient(DATABASE.URI)
 db = mongo_client[DATABASE.NAME]
@@ -133,7 +131,7 @@ async def handle_terabox(client, message: Message):
         buttons = [
             [
                 InlineKeyboardButton("✅ Verify Now", url=verify_url),
-                InlineKeyboardButton("📖 Tutorial", url=HOW_TO_VERIFY)
+                InlineKeyboardButton("📖 How To Verify", url=HOW_TO_VERIFY)
             ]
         ]
         await message.reply_text(
