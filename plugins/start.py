@@ -1,13 +1,11 @@
-#please give credits https://github.com/MN-BOTS
-#  @MrMNTG @MusammilN
+
 from pyrogram import Client as MN_Bot
 from pyrogram import filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from verify_patch import IS_VERIFY, validate_token_and_verify, is_verified, build_verification_link, HOW_TO_VERIFY
 from datetime import datetime
 
-#please give credits https://github.com/MN-BOTS
-#  @MrMNTG @MusammilN
+
 class TEXT:
     START = """
 <b>I’m a powerful Terabox downloader!</b>
@@ -19,21 +17,20 @@ class TEXT:
 """
     DEVELOPER = "👨‍💻 Developer"
     UPDATES_CHANNEL = "📢 Updates Channel"
-    SOURCE_CODE = "💬 Support Group"
+    SUPPORT_GROUP = "💬 Support Group"
 
 class INLINE:
     START_BTN = InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton(TEXT.DEVELOPER, url="https://t.me/MrMNTG")],
+            [InlineKeyboardButton(TEXT.DEVELOPER, url="https://t.me/Indian_MV_Admin_Bot")],
             [
-                InlineKeyboardButton(TEXT.UPDATES_CHANNEL, url="https://t.me/MNBots"),
-                InlineKeyboardButton(TEXT.SOURCE_CODE, url="https://t.me/MNBots_support"),
+                InlineKeyboardButton(TEXT.UPDATES_CHANNEL, url="https://t.me/Indian_MV"),
+                InlineKeyboardButton(TEXT.SUPPORT_GROUP, url="https://t.me/Indian_MV_Group"),
             ],
         ]
     )
 
-#please give credits https://github.com/MN-BOTS
-#  @MrMNTG @MusammilN
+
 @MN_Bot.on_message(filters.command("start"))
 async def start(client: MN_Bot, message: Message):
     user_id = message.from_user.id
@@ -56,5 +53,4 @@ async def start(client: MN_Bot, message: Message):
         reply_markup=INLINE.START_BTN,
     )
 
-#please give credits https://github.com/MN-BOTS
-#  @MrMNTG @MusammilN
+
