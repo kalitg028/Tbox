@@ -104,7 +104,7 @@ def get_file_info(share_url: str) -> dict:
         "site_referer": final_url, "shorturl": surl, "root": "1,",
     }
     info = requests.get(
-        "https://www.terabox.club/wap/share/filelist?" + urlencode(params),
+        "https://www.terabox.com/share/list?" + urlencode(params),
         headers=HEADERS
     ).json()
 
