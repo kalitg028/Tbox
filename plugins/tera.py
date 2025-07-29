@@ -33,7 +33,7 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9,hi;q=0.8",
     "Connection": "keep-alive",
     "DNT": "1",
-    "Host": "www.terabox.app",
+    "Host": "www.terabox.com",
     "Upgrade-Insecure-Requests": "1",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                   "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -104,7 +104,7 @@ def get_file_info(share_url: str) -> dict:
         "site_referer": final_url, "shorturl": surl, "root": "1,",
     }
     info = requests.get(
-        "https://www.terabox.app/share/list?" + urlencode(params),
+        "https://www.terabox.club/wap/share/filelist?" + urlencode(params),
         headers=HEADERS
     ).json()
 
@@ -131,7 +131,7 @@ async def handle_terabox(client, message: Message):
         buttons = [
             [
                 InlineKeyboardButton("✅ Verify Now", url=verify_url),
-                InlineKeyboardButton("📖 Tutorial", url=HOW_TO_VERIFY)
+                InlineKeyboardButton("📖 How To Verify ", url=HOW_TO_VERIFY)
             ]
         ]
         await message.reply_text(
